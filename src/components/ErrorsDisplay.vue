@@ -1,5 +1,5 @@
 <template>
-  <div class="errors-display">
+  <div ref="errorsDisplay" class="errors-display">
     <strong>Errors</strong>
     <kbd>{{ errorsCount }}</kbd>
     <em>of</em>
@@ -15,11 +15,31 @@ export default {
       type: String,
       default: "8"
     }
+  },
+
+  watch: {
+    errorsCount: "triggerError"
+  },
+
+  methods: {
+    triggerError() {
+      const el = this.$refs.errorsDisplay;
+      el.classList.add("error");
+      el.addEventListener("animationend", this.animationEnded);
+    },
+
+    animationEnded() {
+      this.$refs.errorsDisplay.classList.remove("error");
+    }
   }
 };
 </script>
 
 <style lang="scss" scoped>
+@import "~@/sass/mixins";
+
+@include shakeAnimation();
+
 .errors-display {
   position: fixed;
   right: 20px;
@@ -30,5 +50,9 @@ export default {
   align-items: center;
   padding: 10px 20px;
   box-shadow: 0 2px 10px black;
+
+  &.error {
+    animation: 0.8s shakeAnimation ease-in-out forwards;
+  }
 }
 </style>

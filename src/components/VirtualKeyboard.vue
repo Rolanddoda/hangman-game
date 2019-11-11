@@ -6,7 +6,7 @@
       :class="{ disabled: disabledChars.includes(char) }"
       @click="$emit('char-pressed', char)"
     >
-      {{ char }}
+      <em>{{ char }}</em>
     </kbd>
   </div>
 </template>
