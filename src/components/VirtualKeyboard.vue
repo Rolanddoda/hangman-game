@@ -1,6 +1,11 @@
 <template>
   <div class="keyboard-content">
-    <kbd v-for="(char, index) of chars" :key="index">
+    <kbd
+      v-for="(char, index) of chars"
+      :key="index"
+      :class="{ disabled: disabledChars.includes(char) }"
+      @click="$emit('char-pressed', char)"
+    >
       {{ char }}
     </kbd>
   </div>
@@ -8,6 +13,10 @@
 
 <script>
 export default {
+  props: {
+    disabledChars: Array
+  },
+
   data() {
     return {
       chars: [
@@ -62,9 +71,15 @@ export default {
     border-radius: 5px;
     padding: 10px;
     cursor: pointer;
+    user-select: none;
 
     &:nth-child(20) {
       grid-column: 1;
+    }
+
+    &.disabled {
+      background: black;
+      opacity: 0.3;
     }
   }
 }

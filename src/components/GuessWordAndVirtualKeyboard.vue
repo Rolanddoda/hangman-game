@@ -6,7 +6,10 @@
       }}</kbd>
     </div>
 
-    <VirtualKeyboard />
+    <VirtualKeyboard
+      @char-pressed="charPressed"
+      :disabled-chars="charsClicked"
+    />
   </div>
 </template>
 
@@ -22,7 +25,8 @@ export default {
   },
 
   data: () => ({
-    word: ""
+    word: "",
+    charsClicked: []
   }),
 
   computed: {
@@ -43,6 +47,10 @@ export default {
   methods: {
     startGame() {
       this.word = randomWord().toUpperCase();
+    },
+
+    charPressed(char) {
+      this.charsClicked.push(char);
     }
   }
 };
