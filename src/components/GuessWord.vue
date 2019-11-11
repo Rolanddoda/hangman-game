@@ -1,8 +1,8 @@
 <template>
   <div class="guess-word">
-    <div ref="guessWord" class="guessWord">
-      {{ word }}
-    </div>
+    <kbd v-for="(char, index) of word.split('')" :key="index">
+      {{ char }}
+    </kbd>
   </div>
 </template>
 
