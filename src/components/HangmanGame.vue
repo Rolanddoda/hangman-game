@@ -1,15 +1,18 @@
 <template>
   <div class="hangman-game">
     <HangmanSVG />
+    <GuessWord />
   </div>
 </template>
 
 <script>
 import HangmanSVG from "./HangmanSVG";
+import GuessWord from "./GuessWord";
 
 export default {
   components: {
-    HangmanSVG
+    HangmanSVG,
+    GuessWord
   }
 };
 </script>
