@@ -1,9 +1,11 @@
 <template>
   <div class="guess-word-and-keyboard">
     <div class="word-wrapper">
-      <kbd v-for="(char, index) of chars" :key="index">{{
-        char.hidden ? "_" : char.value
-      }}</kbd>
+      <kbd v-for="(char, index) of chars" :key="index">
+        {{
+          char.hidden && !charsClicked.includes(char.value) ? "_" : char.value
+        }}
+      </kbd>
     </div>
 
     <VirtualKeyboard
