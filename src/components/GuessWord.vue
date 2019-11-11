@@ -1,18 +1,30 @@
 <template>
   <div class="guess-word">
-    <kbd v-for="(char, index) of word.split('')" :key="index">
-      {{ char }}
-    </kbd>
+    <kbd v-for="(char, index) of chars" :key="index">{{
+      char.hidden ? "_" : char.value
+    }}</kbd>
   </div>
 </template>
 
 <script>
 import randomWord from "random-words";
+import { randomNumber, randomIndexesFromWord } from "../utils";
 
 export default {
   data: () => ({
     word: ""
   }),
+
+  computed: {
+    chars() {
+      const hiddenCharsCount = randomNumber(1, this.word.length - 2);
+      const hiddenIndexes = randomIndexesFromWord(hiddenCharsCount, this.word);
+      return this.word.split("").map((char, index) => ({
+        hidden: hiddenIndexes.includes(index),
+        value: char
+      }));
+    }
+  },
 
   created() {
     this.startGame();
