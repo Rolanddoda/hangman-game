@@ -12,6 +12,8 @@
       @char-pressed="charPressed"
       :disabled-chars="charsClicked"
     />
+
+    <ErrorsDisplay :errors-count="errorsCount" />
   </div>
 </template>
 
@@ -20,15 +22,18 @@ import randomWord from "random-words";
 import { randomNumber, randomIndexesFromWord } from "../utils";
 // Components
 import VirtualKeyboard from "./VirtualKeyboard";
+import ErrorsDisplay from "./ErrorsDisplay";
 
 export default {
   components: {
-    VirtualKeyboard
+    VirtualKeyboard,
+    ErrorsDisplay
   },
 
   data: () => ({
     word: "",
-    charsClicked: []
+    charsClicked: [],
+    errorsCount: 0
   }),
 
   computed: {
@@ -39,6 +44,10 @@ export default {
         hidden: hiddenIndexes.includes(index),
         value: char
       }));
+    },
+
+    hiddenChars() {
+      return this.chars.filter(char => char.hidden).map(char => char.value);
     }
   },
 
@@ -52,6 +61,7 @@ export default {
     },
 
     charPressed(char) {
+      if (!this.hiddenChars.includes(char)) this.errorsCount++;
       this.charsClicked.push(char);
     }
   }
