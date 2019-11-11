@@ -1,6 +1,9 @@
 <template>
   <div class="errors-display">
-    Errors: <kbd>{{ errorsCount }}</kbd> / <kbd>{{ maxErrors }}</kbd>
+    <strong>Errors</strong>
+    <kbd>{{ errorsCount }}</kbd>
+    <em>of</em>
+    <kbd>{{ maxErrors }}</kbd>
   </div>
 </template>
 
@@ -15,3 +18,17 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.errors-display {
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  display: grid;
+  gap: 10px;
+  grid-auto-flow: column;
+  align-items: center;
+  padding: 10px 20px;
+  box-shadow: 0 2px 10px black;
+}
+</style>
