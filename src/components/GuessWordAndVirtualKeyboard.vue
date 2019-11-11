@@ -1,6 +1,6 @@
 <template>
   <div class="guess-word-and-keyboard">
-    <div class="word-wrapper">
+    <div class="word-wrapper" ref="wordWrapper">
       <kbd v-for="(char, index) of chars" :key="index">
         {{
           char.hidden && !charsClicked.includes(char.value) ? "_" : char.value
@@ -55,20 +55,41 @@ export default {
     this.startGame();
   },
 
+  beforeDestroy() {
+    this.$refs.input.removeEventListener("animationend", this.animationEnded);
+  },
+
   methods: {
     startGame() {
       this.word = randomWord().toUpperCase();
     },
 
     charPressed(char) {
-      if (!this.hiddenChars.includes(char)) this.errorsCount++;
+      if (!this.hiddenChars.includes(char)) {
+        this.errorsCount++;
+        this.triggerError();
+      }
       this.charsClicked.push(char);
+    },
+
+    triggerError() {
+      const el = this.$refs.wordWrapper;
+      el.classList.add("error");
+      el.addEventListener("animationend", this.animationEnded);
+    },
+
+    animationEnded() {
+      this.$refs.wordWrapper.classList.remove("error");
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
+@import "~@/sass/mixins";
+
+@include shakeAnimation();
+
 .guess-word-and-keyboard {
   display: grid;
   gap: 20px;
@@ -81,6 +102,10 @@ export default {
     padding: 10px 30px;
     transition: all 0.5s ease-in-out;
     box-shadow: 0 2px 10px black;
+
+    &.error {
+      animation: 0.8s shakeAnimation ease-in-out forwards;
+    }
   }
 }
 </style>
