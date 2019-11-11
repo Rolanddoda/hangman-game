@@ -20,7 +20,8 @@ export default {
 @import "~@/sass/variables";
 
 html,
-body {
+body,
+#app {
   width: 100%;
   height: 100%;
 }
@@ -29,5 +30,12 @@ body {
   margin: 0;
   background: $hm_navy;
   color: $hm_yellow;
+}
+
+kbd {
+  border: 1px solid #aaa; // TODO dynamic color
+  border-radius: 4px;
+  display: inline-block;
+  padding: 5px 9px;
 }
 </style>
