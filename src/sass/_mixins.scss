@@ -30,7 +30,7 @@
   }
 }
 
-@mixin moveUpStepAnimations () {
+@mixin svgAnimations () {
   @keyframes moveUpStep1 {
     to {
       transform: matrix(1, 0, 0, 1, 161.484, 224.583);
@@ -52,6 +52,16 @@
     }
     to {
       transform: matrix(1, 0, 0, 1, 161.484, 200.583);
+    }
+  }
+
+  @keyframes deadHead {
+    from {
+      transform-origin: 14% 29%;
+    }
+    to {
+      transform: matrix(1, 0, 0, 1, -56.9274, -213.785) rotate(20deg);
+      transform-origin: 14% 29%;
     }
   }
 }
