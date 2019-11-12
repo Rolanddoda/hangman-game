@@ -3,7 +3,7 @@
     <kbd
       v-for="(char, index) of chars"
       :key="index"
-      :class="{ disabled: disabledChars.includes(char) }"
+      :class="{ disabled: disabledChars.includes(char) || gameEnded }"
       @click="charPressed(char)"
     >
       <em>{{ char }}</em>

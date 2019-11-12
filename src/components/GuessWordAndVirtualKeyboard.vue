@@ -9,12 +9,12 @@
     </div>
 
     <VirtualKeyboard
-      :game-ended="isWordSolved"
+      :game-ended="isWordSolved || maxErrorsExceeded"
       :disabled-chars="charsClicked"
       @char-pressed="charPressed"
     />
 
-    <ErrorsDisplay :errors-count="errorsCount" />
+    <ErrorsDisplay :errors-count="errorsCount" :max-errors="maxErrors" />
   </div>
 </template>
 
@@ -60,11 +60,16 @@ export default {
         this.charsClicked.join(),
         this.hiddenChars
       );
+    },
+
+    maxErrorsExceeded() {
+      return this.errorsCount > this.maxErrors;
     }
   },
 
   created() {
     this.startGame();
+    this.maxErrors = 8; // here we set max errors to 8 and this property is not reactive
   },
 
   beforeDestroy() {

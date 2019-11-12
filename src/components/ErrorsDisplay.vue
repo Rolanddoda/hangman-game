@@ -12,8 +12,8 @@ export default {
   props: {
     errorsCount: Number,
     maxErrors: {
-      type: String,
-      default: "8"
+      type: Number,
+      default: 8
     }
   },
 
