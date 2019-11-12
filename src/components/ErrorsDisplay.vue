@@ -51,6 +51,7 @@ export default {
   align-items: center;
   padding: 10px 20px;
   box-shadow: 0 2px 10px black;
+  cursor: pointer;
 
   &.error {
     animation: 0.8s shakeAnimation ease-in-out forwards;

@@ -25,6 +25,7 @@
     />
 
     <ErrorsDisplay :errors-count="errorsCount" :max-errors="maxErrors" />
+    <PcFindWord @pc-find-word="letPcToFindWord" />
   </div>
 </template>
 
@@ -38,17 +39,20 @@ import {
 // Components
 import VirtualKeyboard from "./VirtualKeyboard";
 import ErrorsDisplay from "./ErrorsDisplay";
+import PcFindWord from "./PcFindWord";
 
 export default {
   components: {
     VirtualKeyboard,
-    ErrorsDisplay
+    ErrorsDisplay,
+    PcFindWord
   },
 
   data: () => ({
     word: "",
     charsClicked: [],
-    errorsCount: 0
+    errorsCount: 0,
+    interval: null
   }),
 
   computed: {
@@ -115,6 +119,10 @@ export default {
 
     animationEnded() {
       this.$refs.wordWrapper.classList.remove("error");
+    },
+
+    letPcToFindWord() {
+      this.hiddenChars.forEach(char => this.charsClicked.push(char));
     }
   }
 };
