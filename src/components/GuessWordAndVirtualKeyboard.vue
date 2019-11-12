@@ -77,6 +77,12 @@ export default {
     }
   },
 
+  watch: {
+    errorsCount(val) {
+      this.$emit("errors-count-changed", val);
+    }
+  },
+
   created() {
     this.startGame();
     this.maxErrors = 8; // here we set max errors to 8 and this property is not reactive

@@ -29,3 +29,29 @@
     }
   }
 }
+
+@mixin moveUpStepAnimations () {
+  @keyframes moveUpStep1 {
+    to {
+      transform: matrix(1, 0, 0, 1, 161.484, 224.583);
+    }
+  }
+
+  @keyframes moveUpStep2 {
+    from {
+      transform: matrix(1, 0, 0, 1, 161.484, 224.583);
+    }
+    to {
+      transform: matrix(1, 0, 0, 1, 161.484, 209.583);
+    }
+  }
+
+  @keyframes moveUpStep3 {
+    from {
+      transform: matrix(1, 0, 0, 1, 161.484, 209.583);
+    }
+    to {
+      transform: matrix(1, 0, 0, 1, 161.484, 200.583);
+    }
+  }
+}

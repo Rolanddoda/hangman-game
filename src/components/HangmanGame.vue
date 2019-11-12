@@ -1,7 +1,7 @@
 <template>
   <div class="hangman-game">
-    <HangmanSVG />
-    <GuessWord />
+    <HangmanSVG :errors-count="errorsCount" />
+    <GuessWord @errors-count-changed="errorsCount = $event" />
   </div>
 </template>
 
@@ -13,7 +13,11 @@ export default {
   components: {
     HangmanSVG,
     GuessWord
-  }
+  },
+
+  data: () => ({
+    errorsCount: 0
+  })
 };
 </script>
 
