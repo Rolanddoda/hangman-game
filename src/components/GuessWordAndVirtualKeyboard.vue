@@ -9,8 +9,9 @@
     </div>
 
     <VirtualKeyboard
-      @char-pressed="charPressed"
+      :game-ended="isWordSolved"
       :disabled-chars="charsClicked"
+      @char-pressed="charPressed"
     />
 
     <ErrorsDisplay :errors-count="errorsCount" />
@@ -19,7 +20,11 @@
 
 <script>
 import randomWord from "random-words";
-import { randomNumber, randomIndexesFromWord } from "../utils";
+import {
+  randomNumber,
+  randomIndexesFromWord,
+  wordContainsArrayOfChars
+} from "../utils";
 // Components
 import VirtualKeyboard from "./VirtualKeyboard";
 import ErrorsDisplay from "./ErrorsDisplay";
@@ -48,6 +53,13 @@ export default {
 
     hiddenChars() {
       return this.chars.filter(char => char.hidden).map(char => char.value);
+    },
+
+    isWordSolved() {
+      return wordContainsArrayOfChars(
+        this.charsClicked.join(),
+        this.hiddenChars
+      );
     }
   },
 

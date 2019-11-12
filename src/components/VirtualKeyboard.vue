@@ -4,7 +4,7 @@
       v-for="(char, index) of chars"
       :key="index"
       :class="{ disabled: disabledChars.includes(char) }"
-      @click="$emit('char-pressed', char)"
+      @click="charPressed(char)"
     >
       <em>{{ char }}</em>
     </kbd>
@@ -14,7 +14,8 @@
 <script>
 export default {
   props: {
-    disabledChars: Array
+    disabledChars: Array,
+    gameEnded: Boolean
   },
 
   data() {
@@ -48,6 +49,14 @@ export default {
         "M"
       ]
     };
+  },
+
+  methods: {
+    charPressed(char) {
+      const charIsDisabled = () => this.disabledChars.includes(char);
+      if (!this.gameEnded && !charIsDisabled())
+        this.$emit("char-pressed", char);
+    }
   }
 };
 </script>

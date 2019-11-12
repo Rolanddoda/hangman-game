@@ -8,3 +8,7 @@ export const randomIndexesFromWord = (count, word) => {
   }
   return Array.from(indexes); // ensure to return Array bc Vue doesn't fully support Set
 };
+
+export const wordContainsArrayOfChars = (word, arrayOfChars) => {
+  return arrayOfChars.every(char => word.includes(char));
+};
