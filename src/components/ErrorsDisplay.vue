@@ -44,7 +44,7 @@ export default {
 .errors-display {
   position: fixed;
   right: 20px;
-  top: 20px;
+  bottom: 20px;
   display: grid;
   gap: 10px;
   grid-auto-flow: column;

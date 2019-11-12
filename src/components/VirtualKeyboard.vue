@@ -66,7 +66,7 @@ export default {
 
 .keyboard-content {
   display: grid;
-  grid-template-columns: repeat(10, 41px);
+  grid-template-columns: repeat(10, 2.3rem);
   gap: 8px;
   padding: 8px;
   border-radius: 5px;
