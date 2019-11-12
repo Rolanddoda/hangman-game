@@ -22,7 +22,8 @@ export default {
   },
 
   methods: {
-    triggerError() {
+    triggerError(errorCount) {
+      if (!errorCount) return;
       const el = this.$refs.errorsDisplay;
       el.classList.add("error");
       el.addEventListener("animationend", this.animationEnded);

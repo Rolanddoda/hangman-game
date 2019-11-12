@@ -21,3 +21,11 @@
     }
   }
 }
+
+@mixin scaleFaceAnimation {
+  @keyframes scaleFaceAnimation {
+    from {
+      transform: scale(20) translateX(50%);
+    }
+  }
+}

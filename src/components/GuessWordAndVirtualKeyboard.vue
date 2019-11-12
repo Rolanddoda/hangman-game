@@ -1,11 +1,21 @@
 <template>
   <div class="guess-word-and-keyboard">
-    <div class="word-wrapper" ref="wordWrapper">
-      <kbd v-for="(char, index) of chars" :key="index">
-        {{
-          char.hidden && !charsClicked.includes(char.value) ? "_" : char.value
-        }}
-      </kbd>
+    <div
+      class="word-wrapper"
+      ref="wordWrapper"
+      :class="{ success: isWordSolved, fail: maxErrorsExceeded }"
+    >
+      <div class="chars">
+        <kbd v-for="(char, index) of chars" :key="index">
+          {{
+            char.hidden && !charsClicked.includes(char.value) ? "_" : char.value
+          }}
+        </kbd>
+      </div>
+
+      <button v-show="isWordSolved || maxErrorsExceeded" @click="startGame">
+        New Game
+      </button>
     </div>
 
     <VirtualKeyboard
@@ -79,6 +89,8 @@ export default {
   methods: {
     startGame() {
       this.word = randomWord().toUpperCase();
+      this.errorsCount = 0;
+      this.charsClicked = [];
     },
 
     charPressed(char) {
@@ -106,22 +118,63 @@ export default {
 @import "~@/sass/mixins";
 
 @include shakeAnimation();
+@include scaleFaceAnimation();
 
 .guess-word-and-keyboard {
   display: grid;
   gap: 20px;
 
   .word-wrapper {
+    position: relative;
     display: grid;
-    grid-auto-flow: column;
-    justify-content: center;
+    grid-template-columns: 1fr auto;
     gap: 10px;
-    padding: 10px 30px;
-    transition: all 0.5s ease-in-out;
+    padding: 10px;
     box-shadow: 0 2px 10px black;
+
+    &.success,
+    &.fail {
+      padding-left: 40px;
+
+      &::before {
+        content: "😀";
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        font-size: 1.5rem;
+        z-index: 1;
+        animation: scaleFaceAnimation 0.7s ease-in-out;
+      }
+    }
+
+    &.fail:before {
+      content: "😥";
+    }
 
     &.error {
       animation: 0.8s shakeAnimation ease-in-out forwards;
+    }
+
+    > .chars {
+      display: grid;
+      grid-auto-flow: column;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    > button {
+      padding: 8px 15px;
+      background: transparent;
+      border: none;
+      box-shadow: 0 2px 10px black;
+      color: inherit;
+      outline: none;
+      cursor: pointer;
+
+      &:active {
+        filter: drop-shadow(0 0 0 steelblue);
+        transition: filter 0s;
+      }
     }
   }
 }
