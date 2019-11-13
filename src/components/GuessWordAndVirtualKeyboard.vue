@@ -50,8 +50,7 @@ export default {
   data: () => ({
     word: "",
     charsClicked: [],
-    errorsCount: 0,
-    interval: null
+    errorsCount: 0
   }),
 
   computed: {

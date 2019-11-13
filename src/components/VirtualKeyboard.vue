@@ -15,7 +15,8 @@
 export default {
   props: {
     disabledChars: Array,
-    gameEnded: Boolean
+    gameEnded: Boolean,
+    computerMode: Boolean
   },
 
   data() {
@@ -54,7 +55,7 @@ export default {
   methods: {
     charPressed(char) {
       const charIsDisabled = () => this.disabledChars.includes(char);
-      if (!this.gameEnded && !charIsDisabled())
+      if (!this.gameEnded && !charIsDisabled() && !this.computerMode)
         this.$emit("char-pressed", char);
     }
   }

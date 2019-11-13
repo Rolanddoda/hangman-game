@@ -16,19 +16,11 @@ export default {
   },
 
   data: () => ({
-    showModal: false,
+    showModal: true,
     chars: null
   }),
 
-  mounted() {
-    this.$nextTick(() => this.startGame());
-  },
-
   methods: {
-    startGame() {
-      this.showModal = true;
-    },
-
     charsSelected(chars) {
       this.showModal = false;
       this.chars = chars;
