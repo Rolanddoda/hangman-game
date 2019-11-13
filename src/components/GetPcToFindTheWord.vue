@@ -5,19 +5,27 @@
     </div>
 
     <VirtualKeyboard computer-mode :disabled-chars="charsClicked" />
+
+    <ErrorsDisplay :errors-count="errorsCount" :max-errors="maxErrors" />
   </div>
 </template>
 
 <script>
-import { wordContainsArrayOfChars } from "../utils";
+import {
+  getKeyboardChars,
+  randomNumber,
+  wordContainsArrayOfChars
+} from "../utils";
 // Components
 import DisplayWordChars from "./DisplayWordChars";
 import VirtualKeyboard from "./VirtualKeyboard";
+import ErrorsDisplay from "./ErrorsDisplay";
 
 export default {
   components: {
     DisplayWordChars,
-    VirtualKeyboard
+    VirtualKeyboard,
+    ErrorsDisplay
   },
 
   props: {
@@ -27,7 +35,8 @@ export default {
   data: () => ({
     charsClicked: [],
     errorsCount: 0,
-    triesCount: 0
+    triesCount: 0,
+    timeOut: null
   }),
 
   computed: {
@@ -47,7 +56,9 @@ export default {
     },
 
     guesses() {
-      return [() => this.guessChar()];
+      return Array.from({ length: this.maxErrors + 1 }, () => () =>
+        this.guessChar()
+      );
     },
 
     getComputerToPlay() {
@@ -66,7 +77,7 @@ export default {
   },
 
   created() {
-    setTimeout(() => this.getComputerToPlay(), 1000);
+    this.timeOut = setTimeout(() => this.getComputerToPlay(), 1000);
     this.maxErrors = 8; // here we set max errors to 8 and this property is not reactive
   },
 
@@ -79,9 +90,21 @@ export default {
 
   methods: {
     guessChar() {
-      this.charPressed("I");
-      // this.triesCount++;
-      // this.triesCount < this.maxErrors && this.getComputerToPlay();
+      const guessedChar = this.getNextChar();
+      this.charPressed(guessedChar);
+      this.triesCount++;
+      if (this.triesCount <= this.maxErrors && !this.isWordSolved) {
+        this.timeOut = setTimeout(() => this.getComputerToPlay(), 1000);
+      }
+    },
+
+    getNextChar() {
+      const keyboardChars = getKeyboardChars();
+      const notClickedChars = keyboardChars.filter(
+        char => !this.charsClicked.includes(char)
+      );
+      const randomIndex = randomNumber(0, notClickedChars.length - 1);
+      return notClickedChars[randomIndex];
     },
 
     charPressed(char) {
