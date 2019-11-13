@@ -10,6 +10,7 @@
           v-else
           :word="word.toUpperCase()"
           :chars-count-to-hide="charsCountToHide"
+          @chars-selected="$emit('chars-selected', $event)"
         />
       </div>
     </transition>
@@ -26,10 +27,6 @@ export default {
   components: {
     EnterWord,
     HideChars
-  },
-
-  props: {
-    value: Boolean
   },
 
   data: () => ({

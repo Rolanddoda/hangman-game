@@ -1,19 +1,23 @@
 <template>
   <div class="pc-guess-word">
-    <WordModal v-model="showModal" />
+    <WordModal v-if="showModal" @chars-selected="charsSelected" />
+    <GetPcToFindTheWord v-else :chars="chars" />
   </div>
 </template>
 
 <script>
 import WordModal from "./WordModal";
+import GetPcToFindTheWord from "./GetPcToFindTheWord";
 
 export default {
   components: {
-    WordModal
+    WordModal,
+    GetPcToFindTheWord
   },
 
   data: () => ({
-    showModal: false
+    showModal: false,
+    chars: null
   }),
 
   mounted() {
@@ -23,6 +27,11 @@ export default {
   methods: {
     startGame() {
       this.showModal = true;
+    },
+
+    charsSelected(chars) {
+      this.showModal = false;
+      this.chars = chars;
     }
   }
 };

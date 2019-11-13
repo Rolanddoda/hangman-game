@@ -5,13 +5,7 @@
       ref="wordWrapper"
       :class="{ success: isWordSolved, fail: maxErrorsExceeded }"
     >
-      <div class="chars">
-        <kbd v-for="(char, index) of chars" :key="index">
-          {{
-            char.hidden && !charsClicked.includes(char.value) ? "_" : char.value
-          }}
-        </kbd>
-      </div>
+      <DisplayWordChars :chars="chars" :chars-clicked="charsClicked" />
 
       <button v-show="isWordSolved || maxErrorsExceeded" @click="startGame">
         New Game
@@ -42,13 +36,15 @@ import VirtualKeyboard from "./VirtualKeyboard";
 import ErrorsDisplay from "./ErrorsDisplay";
 import PcFindWord from "./PcFindWord";
 import LetPcGuessWord from "./LetPcGuessWord";
+import DisplayWordChars from "./DisplayWordChars";
 
 export default {
   components: {
     VirtualKeyboard,
     ErrorsDisplay,
     PcFindWord,
-    LetPcGuessWord
+    LetPcGuessWord,
+    DisplayWordChars
   },
 
   data: () => ({
@@ -173,13 +169,6 @@ export default {
 
     &.error {
       animation: 0.8s shakeAnimation ease-in-out forwards;
-    }
-
-    > .chars {
-      display: grid;
-      grid-auto-flow: column;
-      justify-content: center;
-      gap: 10px;
     }
 
     > button {
