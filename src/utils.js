@@ -41,3 +41,5 @@ export const getKeyboardChars = () => [
   "N",
   "M"
 ];
+
+export const sleep = ms => new Promise(res => setTimeout(res, ms));

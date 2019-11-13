@@ -1,7 +1,11 @@
 <template>
   <div class="pc-guess-word">
     <WordModal v-if="showModal" @chars-selected="charsSelected" />
-    <GetPcToFindTheWord v-else :chars="chars" />
+    <GetPcToFindTheWord
+      v-else
+      :chars="chars"
+      @errors-count-changed="$emit('errors-count-changed', $event)"
+    />
   </div>
 </template>
 

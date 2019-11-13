@@ -1,6 +1,10 @@
 <template>
   <div class="guess-word-and-keyboard">
-    <div class="word-wrapper" ref="wordWrapper">
+    <div
+      class="word-wrapper"
+      ref="wordWrapper"
+      :class="{ success: isWordSolved, fail: maxErrorsExceeded }"
+    >
       <DisplayWordChars :chars="chars" :chars-clicked="charsClicked" />
     </div>
 
@@ -14,7 +18,8 @@
 import {
   getKeyboardChars,
   randomNumber,
-  wordContainsArrayOfChars
+  wordContainsArrayOfChars,
+  sleep
 } from "../utils";
 // Components
 import DisplayWordChars from "./DisplayWordChars";
@@ -56,9 +61,7 @@ export default {
     },
 
     guesses() {
-      return Array.from({ length: this.maxErrors + 1 }, () => () =>
-        this.guessChar()
-      );
+      return Array.from({ length: 26 }, () => () => this.guessChar());
     },
 
     getComputerToPlay() {
@@ -77,7 +80,7 @@ export default {
   },
 
   created() {
-    this.timeOut = setTimeout(() => this.getComputerToPlay(), 1000);
+    this.guessChar();
     this.maxErrors = 8; // here we set max errors to 8 and this property is not reactive
   },
 
@@ -89,12 +92,13 @@ export default {
   },
 
   methods: {
-    guessChar() {
+    async guessChar() {
+      await sleep(2000);
       const guessedChar = this.getNextChar();
       this.charPressed(guessedChar);
       this.triesCount++;
-      if (this.triesCount <= this.maxErrors && !this.isWordSolved) {
-        this.timeOut = setTimeout(() => this.getComputerToPlay(), 1000);
+      if (!this.maxErrorsExceeded && !this.isWordSolved) {
+        this.getComputerToPlay();
       }
     },
 

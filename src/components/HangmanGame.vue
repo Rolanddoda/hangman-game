@@ -7,7 +7,7 @@
       @pc-mode="userMode = false"
     />
 
-    <PcGuessWord v-else />
+    <PcGuessWord v-else @errors-count-changed="errorsCount = $event" />
   </div>
 </template>
 
