@@ -4,7 +4,12 @@
       class="enter-word"
       :class="{ correct: correctWord === true, wrong: correctWord === false }"
     >
-      <input type="text" v-model.trim="userWord" placeholder="Type your word" />
+      <input
+        ref="input"
+        type="text"
+        v-model.trim="userWord"
+        placeholder="Type your word"
+      />
     </div>
 
     <div
@@ -31,6 +36,10 @@ export default {
       if (!val) this.correctWord = null;
       this.correctWord = !!words.includes(val);
     }
+  },
+
+  mounted() {
+    this.$refs.input.focus();
   }
 };
 </script>
