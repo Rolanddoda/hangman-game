@@ -2,7 +2,8 @@
   <div class="word-modal">
     <transition name="scaleInOut" appear>
       <div class="content">
-        <EnterWord />
+        <EnterWord v-if="!word" @word-entered="word = $event" />
+        <HideChars v-else :word="word.toUpperCase()" />
       </div>
     </transition>
   </div>
@@ -10,10 +11,12 @@
 
 <script>
 import EnterWord from "./EnterWord";
+import HideChars from "./HideChars";
 
 export default {
   components: {
-    EnterWord
+    EnterWord,
+    HideChars
   },
 
   props: {
@@ -21,7 +24,7 @@ export default {
   },
 
   data: () => ({
-    show: false
+    word: null
   })
 };
 </script>
