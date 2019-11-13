@@ -2,14 +2,23 @@
   <div class="word-modal">
     <transition name="scaleInOut" appear>
       <div class="content">
+        <div v-if="charsCountToHide" class="info">
+          Select {{ charsCountToHide }} chars to hide
+        </div>
         <EnterWord v-if="!word" @word-entered="word = $event" />
-        <HideChars v-else :word="word.toUpperCase()" />
+        <HideChars
+          v-else
+          :word="word.toUpperCase()"
+          :chars-count-to-hide="charsCountToHide"
+        />
       </div>
     </transition>
   </div>
 </template>
 
 <script>
+import { randomNumber } from "../utils";
+// Components
 import EnterWord from "./EnterWord";
 import HideChars from "./HideChars";
 
@@ -24,8 +33,15 @@ export default {
   },
 
   data: () => ({
-    word: null
-  })
+    word: null,
+    charsCountToHide: null
+  }),
+
+  watch: {
+    word(val) {
+      this.charsCountToHide = randomNumber(1, val.length - 1);
+    }
+  }
 };
 </script>
 
@@ -45,6 +61,7 @@ export default {
   text-align: center;
 
   .content {
+    position: relative;
     width: 30%;
     height: 50%;
     border: 1px solid;
@@ -53,6 +70,13 @@ export default {
     display: grid;
     justify-content: center;
     align-items: center;
+
+    .info {
+      position: absolute;
+      font-size: 2rem;
+      left: 10px;
+      top: 10px;
+    }
   }
 }
 
