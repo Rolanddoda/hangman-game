@@ -26,6 +26,7 @@
 
     <ErrorsDisplay :errors-count="errorsCount" :max-errors="maxErrors" />
     <PcFindWord @pc-find-word="letPcToFindWord" />
+    <LetPcGuessWord @pc-guess-word="$emit('pc-mode')" />
   </div>
 </template>
 
@@ -40,12 +41,14 @@ import {
 import VirtualKeyboard from "./VirtualKeyboard";
 import ErrorsDisplay from "./ErrorsDisplay";
 import PcFindWord from "./PcFindWord";
+import LetPcGuessWord from "./LetPcGuessWord";
 
 export default {
   components: {
     VirtualKeyboard,
     ErrorsDisplay,
-    PcFindWord
+    PcFindWord,
+    LetPcGuessWord
   },
 
   data: () => ({
@@ -93,7 +96,10 @@ export default {
   },
 
   beforeDestroy() {
-    this.$refs.input.removeEventListener("animationend", this.animationEnded);
+    this.$refs.wordWrapper.removeEventListener(
+      "animationend",
+      this.animationEnded
+    );
   },
 
   methods: {

@@ -1,22 +1,31 @@
 <template>
   <div class="hangman-game">
     <HangmanSVG :errors-count="errorsCount" />
-    <GuessWord @errors-count-changed="errorsCount = $event" />
+    <GuessWord
+      v-if="userMode"
+      @errors-count-changed="errorsCount = $event"
+      @pc-mode="userMode = false"
+    />
+
+    <PcGuessWord v-else />
   </div>
 </template>
 
 <script>
 import HangmanSVG from "./HangmanSVG";
 import GuessWord from "./GuessWordAndVirtualKeyboard";
+import PcGuessWord from "./PcGuessWord";
 
 export default {
   components: {
     HangmanSVG,
-    GuessWord
+    GuessWord,
+    PcGuessWord
   },
 
   data: () => ({
-    errorsCount: 0
+    errorsCount: 0,
+    userMode: true
   })
 };
 </script>
