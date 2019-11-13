@@ -2,14 +2,20 @@
   <div class="word-modal">
     <transition name="scaleInOut" appear>
       <div class="content">
-        This is modal content
+        <EnterWord />
       </div>
     </transition>
   </div>
 </template>
 
 <script>
+import EnterWord from "./EnterWord";
+
 export default {
+  components: {
+    EnterWord
+  },
+
   props: {
     value: Boolean
   },
@@ -33,6 +39,7 @@ export default {
   justify-content: center;
   align-items: center;
   background: rgba(0, 0, 0, 0.3);
+  text-align: center;
 
   .content {
     width: 30%;
@@ -40,6 +47,9 @@ export default {
     border: 1px solid;
     border-radius: 5px;
     background: $hm_navy;
+    display: grid;
+    justify-content: center;
+    align-items: center;
   }
 }
 
