@@ -14,37 +14,11 @@ export const wordContainsArrayOfChars = (word, arrayOfChars) => {
 };
 
 export const getKeyboardChars = (commonlyOccur = false) => {
-  const chars = [
-    "Q",
-    "W",
-    "E",
-    "R",
-    "T",
-    "Y",
-    "U",
-    "I",
-    "O",
-    "P",
-    "A",
-    "S",
-    "D",
-    "F",
-    "G",
-    "H",
-    "J",
-    "K",
-    "L",
-    "Z",
-    "X",
-    "C",
-    "V",
-    "B",
-    "N",
-    "M"
-  ];
+  const chars = "QWERTYUIOPASDFGHJKLZXCVBNM".split("");
   if (!commonlyOccur) return chars;
   const commonChars = ["E", "T", "A", "O", "I", "N", "S"];
   const unique = new Set([...commonChars, ...chars]);
+  console.log(Array.from(unique));
   return Array.from(unique);
 };
 
