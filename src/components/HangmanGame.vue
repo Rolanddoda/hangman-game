@@ -17,8 +17,8 @@
 
 <script>
 import HangmanSVG from "./HangmanSVG";
-import GuessWord from "./GuessWordAndVirtualKeyboard";
-import PcGuessWord from "./PcGuessWord";
+import GuessWord from "./UserMode/GuessWordAndVirtualKeyboard";
+import PcGuessWord from "./ComputerMode/PcGuessWord";
 
 export default {
   components: {

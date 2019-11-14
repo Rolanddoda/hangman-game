@@ -30,14 +30,14 @@ import {
   randomNumber,
   randomIndexesFromWord,
   wordContainsArrayOfChars
-} from "../utils";
-import { playSound, stopSound } from "./GameSounds";
+} from "../../utils";
+import { playSound, stopSound } from "@/shared/GameSounds";
 // Components
-import VirtualKeyboard from "./VirtualKeyboard";
-import ErrorsDisplay from "./ErrorsDisplay";
-import PcFindWord from "./PcFindWord";
-import LetPcGuessWord from "./LetPcGuessWord";
-import DisplayWordChars from "./DisplayWordChars";
+import DisplayWordChars from "@/shared/DisplayWordChars";
+import VirtualKeyboard from "@/shared/VirtualKeyboard";
+import ErrorsDisplay from "@/shared/ErrorsDisplay";
+import PcFindWord from "@/shared/PcFindWord";
+import LetPcGuessWord from "./child-components/LetPcGuessWord";
 
 export default {
   components: {

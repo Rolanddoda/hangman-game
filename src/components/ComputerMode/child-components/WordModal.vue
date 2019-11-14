@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { randomNumber } from "../utils";
+import { randomNumber } from "@/utils";
 // Components
 import EnterWord from "./EnterWord";
 import HideChars from "./HideChars";

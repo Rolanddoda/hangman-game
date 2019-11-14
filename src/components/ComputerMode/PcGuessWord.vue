@@ -14,9 +14,9 @@
 </template>
 
 <script>
-import WordModal from "./WordModal";
+import PcFindWord from "@/shared/PcFindWord";
+import WordModal from "./child-components/WordModal";
 import GetPcToFindTheWord from "./GetPcToFindTheWord";
-import PcFindWord from "./PcFindWord";
 
 export default {
   components: {

@@ -23,13 +23,13 @@
 </template>
 
 <script>
-import { getKeyboardChars, wordContainsArrayOfChars, sleep } from "../utils";
+import { getKeyboardChars, wordContainsArrayOfChars, sleep } from "@/utils";
 import words from "an-array-of-english-words";
-import { stopSound, playSound } from "./GameSounds";
+import { stopSound, playSound } from "@/shared/GameSounds";
 // Components
-import DisplayWordChars from "./DisplayWordChars";
-import VirtualKeyboard from "./VirtualKeyboard";
-import ErrorsDisplay from "./ErrorsDisplay";
+import DisplayWordChars from "@/shared/DisplayWordChars";
+import VirtualKeyboard from "@/shared/VirtualKeyboard";
+import ErrorsDisplay from "@/shared/ErrorsDisplay";
 
 export default {
   components: {
