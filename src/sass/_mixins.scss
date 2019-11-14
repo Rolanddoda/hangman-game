@@ -67,6 +67,9 @@
 }
 
 @mixin guessWordSharedStyle () {
+  @include shakeAnimation();
+  @include scaleFaceAnimation();
+
   .guess-word-and-keyboard {
     display: grid;
     justify-items: center;
