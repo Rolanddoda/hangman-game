@@ -1,7 +1,7 @@
 <template>
-  <div class="chars">
-    <kbd v-for="(char, index) of chars" :key="index">
-      {{ char.hidden && !charsClicked.includes(char.value) ? "_" : char.value }}
+  <div ref="chars" class="chars">
+    <kbd v-for="(char, index) of charsToDisplay" :key="index">
+      {{ char }}
     </kbd>
   </div>
 </template>
@@ -11,6 +11,22 @@ export default {
   props: {
     chars: Array,
     charsClicked: Array
+  },
+
+  computed: {
+    charsToDisplay() {
+      return this.chars.map(char => {
+        if (char.hidden && !this.charsClicked.includes(char.value)) return "_";
+        return char.value;
+      });
+    }
+  },
+
+  methods: {
+    getChars() {
+      // access from parent
+      return this.charsToDisplay;
+    }
   }
 };
 </script>

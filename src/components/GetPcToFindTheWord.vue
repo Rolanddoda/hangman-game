@@ -5,7 +5,11 @@
       ref="wordWrapper"
       :class="{ success: isWordSolved, fail: maxErrorsExceeded }"
     >
-      <DisplayWordChars :chars="chars" :chars-clicked="charsClicked" />
+      <DisplayWordChars
+        ref="charsDisplay"
+        :chars="chars"
+        :chars-clicked="charsClicked"
+      />
     </div>
 
     <VirtualKeyboard computer-mode :disabled-chars="charsClicked" />
@@ -15,12 +19,8 @@
 </template>
 
 <script>
-import {
-  getKeyboardChars,
-  randomNumber,
-  wordContainsArrayOfChars,
-  sleep
-} from "../utils";
+import { getKeyboardChars, wordContainsArrayOfChars, sleep } from "../utils";
+import words from "an-array-of-english-words";
 // Components
 import DisplayWordChars from "./DisplayWordChars";
 import VirtualKeyboard from "./VirtualKeyboard";
@@ -47,6 +47,17 @@ export default {
   computed: {
     hiddenChars() {
       return this.chars.filter(char => char.hidden).map(char => char.value);
+    },
+
+    visibleChars() {
+      const wordChars = this.chars
+        .filter(char => !char.hidden)
+        .map(char => char.value);
+      const charsFound = this.hiddenChars.filter(char =>
+        this.charsClicked.includes(char)
+      );
+      const unique = new Set([...wordChars, ...charsFound]);
+      return Array.from(unique);
     },
 
     maxErrorsExceeded() {
@@ -103,12 +114,53 @@ export default {
     },
 
     getNextChar() {
-      const keyboardChars = getKeyboardChars();
+      const keyboardChars = this.getProbableChars();
       const notClickedChars = keyboardChars.filter(
         char => !this.charsClicked.includes(char)
       );
-      const randomIndex = randomNumber(0, notClickedChars.length - 1);
-      return notClickedChars[randomIndex];
+      return notClickedChars[0];
+    },
+
+    getProbableChars() {
+      const charsNotFoundCount = this.getCharsNotFoundCount();
+      if (charsNotFoundCount > 2) return getKeyboardChars(true);
+      return this.bestMatches();
+    },
+
+    bestMatches() {
+      const allChars = this.$refs.charsDisplay.getChars();
+      const charAndIndex = allChars.reduce((acc, char, index) => {
+        if (char !== "_") acc.push({ index, char });
+        return acc;
+      }, []);
+      const wordsWithSameLength = words.filter(
+        word => word.length === allChars.length
+      );
+      const possibleWords = wordsWithSameLength.filter(word => {
+        return charAndIndex.every(
+          char => word[char.index] === char.char.toLowerCase()
+        );
+      });
+      const hiddenIndexes = allChars.reduce((acc, char, index) => {
+        if (char === "_") acc.push(index);
+        return acc;
+      }, []);
+      const probableChars = possibleWords.reduce((acc, word) => {
+        const chars = word
+          .split("")
+          .filter((char, index) => !!hiddenIndexes.includes(index));
+        acc.add(...chars.map(char => char.toUpperCase()));
+        return acc;
+      }, new Set([]));
+
+      return Array.from(probableChars);
+    },
+
+    getCharsNotFoundCount() {
+      const charsNotFound = this.hiddenChars.filter(
+        char => !this.charsClicked.includes(char)
+      );
+      return charsNotFound.length;
     },
 
     charPressed(char) {
