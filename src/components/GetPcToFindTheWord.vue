@@ -10,14 +10,18 @@
         :chars="chars"
         :chars-clicked="charsClicked"
       />
+
+      <button
+        v-show="isWordSolved || maxErrorsExceeded"
+        @click="$emit('start-new-game')"
+      >
+        New Game
+      </button>
     </div>
 
     <VirtualKeyboard computer-mode :disabled-chars="charsClicked" />
 
     <ErrorsDisplay :errors-count="errorsCount" :max-errors="maxErrors" />
-    <PcFindWord @click="$emit('toggle-user-mode')"
-      >Let ME find a word</PcFindWord
-    >
   </div>
 </template>
 
@@ -28,14 +32,12 @@ import words from "an-array-of-english-words";
 import DisplayWordChars from "./DisplayWordChars";
 import VirtualKeyboard from "./VirtualKeyboard";
 import ErrorsDisplay from "./ErrorsDisplay";
-import PcFindWord from "./PcFindWord";
 
 export default {
   components: {
     DisplayWordChars,
     VirtualKeyboard,
-    ErrorsDisplay,
-    PcFindWord
+    ErrorsDisplay
   },
 
   props: {
