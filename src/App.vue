@@ -37,7 +37,7 @@ body {
 }
 
 kbd {
-  border: 1px solid #aaa; // TODO dynamic color
+  border: 1px solid lighten($hm_navy, 90);
   border-radius: 4px;
   display: inline-block;
   padding: 5px 9px;
