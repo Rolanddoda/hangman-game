@@ -28,6 +28,7 @@
 <script>
 import { getKeyboardChars, wordContainsArrayOfChars, sleep } from "../utils";
 import words from "an-array-of-english-words";
+import { stopSound, playSound } from "./GameSounds";
 // Components
 import DisplayWordChars from "./DisplayWordChars";
 import VirtualKeyboard from "./VirtualKeyboard";
@@ -83,6 +84,14 @@ export default {
   watch: {
     errorsCount(val) {
       this.$emit("errors-count-changed", val);
+    },
+
+    isWordSolved(val) {
+      val && playSound("won");
+    },
+
+    maxErrorsExceeded(val) {
+      val && playSound("lost");
     }
   },
 
@@ -96,6 +105,8 @@ export default {
       "animationend",
       this.animationEnded
     );
+    stopSound("lost");
+    stopSound("won");
   },
 
   methods: {
@@ -164,7 +175,8 @@ export default {
       if (!this.hiddenChars.includes(char)) {
         this.errorsCount++;
         this.triggerError();
-      }
+        playSound("wrong");
+      } else playSound("correct");
       this.charsClicked.push(char);
     },
 
