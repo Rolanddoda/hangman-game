@@ -89,4 +89,10 @@ export default {
 .scaleInOut-fade-leave-to {
   transform: scale(1);
 }
+
+@media only screen and (max-width: 600px) {
+  .word-modal .content {
+    width: 80%;
+  }
+}
 </style>

@@ -13,4 +13,11 @@
   box-shadow: 0 2px 10px black;
   cursor: pointer;
 }
+
+@media only screen and (max-width: 600px) {
+  .pc-guess-word {
+    right: 10px;
+    left: unset;
+  }
+}
 </style>

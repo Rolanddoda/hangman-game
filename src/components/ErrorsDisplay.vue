@@ -57,4 +57,14 @@ export default {
     animation: 0.8s shakeAnimation ease-in-out forwards;
   }
 }
+
+@media only screen and (max-width: 600px) {
+  .errors-display {
+    top: 20px;
+    bottom: unset;
+    left: 10px;
+    padding: 10px;
+    right: unset;
+  }
+}
 </style>
