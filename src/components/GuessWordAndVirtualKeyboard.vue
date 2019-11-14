@@ -31,6 +31,7 @@ import {
   randomIndexesFromWord,
   wordContainsArrayOfChars
 } from "../utils";
+import { playSound, stopSound } from "./GameSounds";
 // Components
 import VirtualKeyboard from "./VirtualKeyboard";
 import ErrorsDisplay from "./ErrorsDisplay";
@@ -82,6 +83,14 @@ export default {
   watch: {
     errorsCount(val) {
       this.$emit("errors-count-changed", val);
+    },
+
+    isWordSolved(val) {
+      val && playSound("won");
+    },
+
+    maxErrorsExceeded(val) {
+      val && playSound("lost");
     }
   },
 
@@ -95,6 +104,8 @@ export default {
       "animationend",
       this.animationEnded
     );
+    stopSound("lost");
+    stopSound("won");
   },
 
   methods: {
@@ -108,7 +119,8 @@ export default {
       if (!this.hiddenChars.includes(char)) {
         this.errorsCount++;
         this.triggerError();
-      }
+        playSound("wrong");
+      } else playSound("correct");
       this.charsClicked.push(char);
     },
 
