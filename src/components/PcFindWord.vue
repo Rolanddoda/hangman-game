@@ -1,6 +1,6 @@
 <template functional>
-  <em class="pc-find-word" @click="listeners['pc-find-word']">
-    PC find the word
+  <em class="pc-find-word" @click="listeners['click']">
+    <slot>PC find the word</slot>
   </em>
 </template>
 

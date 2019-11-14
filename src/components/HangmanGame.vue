@@ -4,10 +4,14 @@
     <GuessWord
       v-if="userMode"
       @errors-count-changed="errorsCount = $event"
-      @pc-mode="userMode = false"
+      @pc-mode="toggleUserMode"
     />
 
-    <PcGuessWord v-else @errors-count-changed="errorsCount = $event" />
+    <PcGuessWord
+      v-else
+      @errors-count-changed="errorsCount = $event"
+      @toggle-user-mode="toggleUserMode"
+    />
   </div>
 </template>
 
@@ -26,7 +30,14 @@ export default {
   data: () => ({
     errorsCount: 0,
     userMode: true
-  })
+  }),
+
+  methods: {
+    toggleUserMode() {
+      this.errorsCount = 0; // reset errors when changing mode
+      this.userMode = !this.userMode;
+    }
+  }
 };
 </script>
 

@@ -15,6 +15,9 @@
     <VirtualKeyboard computer-mode :disabled-chars="charsClicked" />
 
     <ErrorsDisplay :errors-count="errorsCount" :max-errors="maxErrors" />
+    <PcFindWord @click="$emit('toggle-user-mode')"
+      >Let ME find a word</PcFindWord
+    >
   </div>
 </template>
 
@@ -25,12 +28,14 @@ import words from "an-array-of-english-words";
 import DisplayWordChars from "./DisplayWordChars";
 import VirtualKeyboard from "./VirtualKeyboard";
 import ErrorsDisplay from "./ErrorsDisplay";
+import PcFindWord from "./PcFindWord";
 
 export default {
   components: {
     DisplayWordChars,
     VirtualKeyboard,
-    ErrorsDisplay
+    ErrorsDisplay,
+    PcFindWord
   },
 
   props: {
@@ -47,17 +52,6 @@ export default {
   computed: {
     hiddenChars() {
       return this.chars.filter(char => char.hidden).map(char => char.value);
-    },
-
-    visibleChars() {
-      const wordChars = this.chars
-        .filter(char => !char.hidden)
-        .map(char => char.value);
-      const charsFound = this.hiddenChars.filter(char =>
-        this.charsClicked.includes(char)
-      );
-      const unique = new Set([...wordChars, ...charsFound]);
-      return Array.from(unique);
     },
 
     maxErrorsExceeded() {
@@ -105,6 +99,7 @@ export default {
   methods: {
     async guessChar() {
       await sleep(2000);
+      if (!this.$refs.charsDisplay) return; // component is destroyed but code gets executed
       const guessedChar = this.getNextChar();
       this.charPressed(guessedChar);
       this.triesCount++;

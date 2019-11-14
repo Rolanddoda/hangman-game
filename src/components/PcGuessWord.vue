@@ -5,6 +5,7 @@
       v-else
       :chars="chars"
       @errors-count-changed="$emit('errors-count-changed', $event)"
+      @toggle-user-mode="$emit('toggle-user-mode')"
     />
   </div>
 </template>

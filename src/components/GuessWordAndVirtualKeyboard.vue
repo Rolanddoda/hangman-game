@@ -19,7 +19,7 @@
     />
 
     <ErrorsDisplay :errors-count="errorsCount" :max-errors="maxErrors" />
-    <PcFindWord @pc-find-word="letPcToFindWord" />
+    <PcFindWord @click="letPcToFindWord" />
     <LetPcGuessWord @pc-guess-word="$emit('pc-mode')" />
   </div>
 </template>

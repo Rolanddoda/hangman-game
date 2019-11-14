@@ -18,7 +18,6 @@ export const getKeyboardChars = (commonlyOccur = false) => {
   if (!commonlyOccur) return chars;
   const commonChars = ["E", "T", "A", "O", "I", "N", "S"];
   const unique = new Set([...commonChars, ...chars]);
-  console.log(Array.from(unique));
   return Array.from(unique);
 };
 
