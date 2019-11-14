@@ -204,6 +204,7 @@ export default {
 
 .guess-word-and-keyboard {
   display: grid;
+  justify-items: center;
   gap: 20px;
 
   .word-wrapper {
@@ -221,8 +222,8 @@ export default {
       &::before {
         content: "😀";
         position: absolute;
-        left: 10px;
-        top: 10px;
+        left: 5px;
+        top: 8px;
         font-size: 1.5rem;
         z-index: 1;
         animation: scaleFaceAnimation 0.7s ease-in-out;
