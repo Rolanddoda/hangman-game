@@ -86,7 +86,7 @@ export default {
     },
 
     isWordSolved(val) {
-      val && playSound("won");
+      val && !this.maxErrorsExceeded && playSound("won");
     },
 
     maxErrorsExceeded(val) {
@@ -110,6 +110,8 @@ export default {
 
   methods: {
     startGame() {
+      stopSound("lost");
+      stopSound("won");
       this.word = randomWord().toUpperCase();
       this.errorsCount = 0;
       this.charsClicked = [];

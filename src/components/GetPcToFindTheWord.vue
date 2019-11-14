@@ -11,10 +11,7 @@
         :chars-clicked="charsClicked"
       />
 
-      <button
-        v-show="isWordSolved || maxErrorsExceeded"
-        @click="$emit('start-new-game')"
-      >
+      <button v-show="isWordSolved || maxErrorsExceeded" @click="startNewGame">
         New Game
       </button>
     </div>
@@ -188,6 +185,12 @@ export default {
 
     animationEnded() {
       this.$refs.wordWrapper.classList.remove("error");
+    },
+
+    startNewGame() {
+      stopSound("lost");
+      stopSound("won");
+      this.$emit("start-new-game");
     }
   }
 };
