@@ -30,10 +30,10 @@ import { randomNumber, randomIndexesFromWord } from "../../utils";
 import { stopSound } from "@/shared/GameSounds";
 import guessWordSharedCode from "@/shared/guess-word-shared-code";
 // Components
-import DisplayWordChars from "@/shared/DisplayWordChars";
-import VirtualKeyboard from "@/shared/VirtualKeyboard";
-import ErrorsDisplay from "@/shared/ErrorsDisplay";
-import PcFindWord from "@/shared/PcFindWord";
+import DisplayWordChars from "@/shared/components/DisplayWordChars";
+import VirtualKeyboard from "@/shared/components/VirtualKeyboard";
+import ErrorsDisplay from "@/shared/components/ErrorsDisplay";
+import PcFindWord from "@/shared/components/PcFindWord";
 import LetPcGuessWord from "./child-components/LetPcGuessWord";
 
 export default {

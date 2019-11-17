@@ -28,9 +28,9 @@ import words from "an-array-of-english-words";
 import { stopSound } from "@/shared/GameSounds";
 import guessWordSharedCode from "@/shared/guess-word-shared-code";
 // Components
-import DisplayWordChars from "@/shared/DisplayWordChars";
-import VirtualKeyboard from "@/shared/VirtualKeyboard";
-import ErrorsDisplay from "@/shared/ErrorsDisplay";
+import DisplayWordChars from "@/shared/components/DisplayWordChars";
+import VirtualKeyboard from "@/shared/components/VirtualKeyboard";
+import ErrorsDisplay from "@/shared/components/ErrorsDisplay";
 
 export default {
   components: {

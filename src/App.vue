@@ -1,17 +1,43 @@
 <template>
   <div id="app">
-    <HangmanGame />
+    <HangmanSVG :errors-count="errorsCount" />
+    <UserMode
+      v-if="userMode"
+      @errors-count-changed="errorsCount = $event"
+      @pc-mode="toggleUserMode"
+    />
+    <ComputerMode
+      v-else
+      @errors-count-changed="errorsCount = $event"
+      @toggle-user-mode="toggleUserMode"
+    />
   </div>
 </template>
 
 <script>
-import HangmanGame from "./components/HangmanGame";
+import HangmanSVG from "./components/HangmanSVG";
+import UserMode from "./components/UserMode/UserMode";
+import ComputerMode from "./components/ComputerMode/ComputerMode";
 
 export default {
   name: "app",
 
   components: {
-    HangmanGame
+    HangmanSVG,
+    UserMode,
+    ComputerMode
+  },
+
+  data: () => ({
+    errorsCount: 0,
+    userMode: true
+  }),
+
+  methods: {
+    toggleUserMode() {
+      this.errorsCount = 0; // reset errors when changing mode
+      this.userMode = !this.userMode;
+    }
   }
 };
 </script>
@@ -26,14 +52,24 @@ body,
   height: 100%;
 }
 
-* {
-  box-sizing: border-box;
-}
-
 body {
   margin: 0;
   background: $hm_navy;
   color: $hm_yellow;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+#app {
+  height: 100%;
+  display: grid;
+  justify-items: center;
+  align-items: start;
+  grid-template-rows: 2fr 1fr;
+  gap: 10px;
+  padding-bottom: 90px;
 }
 
 kbd {
