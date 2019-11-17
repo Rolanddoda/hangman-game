@@ -29,7 +29,7 @@ import randomWord from "random-words";
 import { randomNumber, randomIndexesFromWord } from "@/shared/utils";
 import { stopSound } from "@/shared/GameSounds";
 import guessWordSharedCode from "@/shared/guess-word-shared-code";
-import { errors } from "@/shared/errorsObservable";
+import { errors } from "@/shared/errors-observable";
 // Components
 import DisplayWordChars from "@/shared/components/DisplayWordChars";
 import VirtualKeyboard from "@/shared/components/VirtualKeyboard";

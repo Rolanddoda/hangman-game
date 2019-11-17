@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { errors } from "@/shared/errorsObservable";
+import { errors } from "@/shared/errors-observable";
 // Components
 import HangmanSVG from "./components/HangmanSVG";
 import UserMode from "./components/user-mode/UserMode";
