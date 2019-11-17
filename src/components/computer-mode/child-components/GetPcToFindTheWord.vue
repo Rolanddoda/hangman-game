@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { getKeyboardChars, sleep } from "@/utils";
+import { getKeyboardChars, sleep } from "@/shared/utils";
 import words from "an-array-of-english-words";
 import { stopSound } from "@/shared/GameSounds";
 import guessWordSharedCode from "@/shared/guess-word-shared-code";

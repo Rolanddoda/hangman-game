@@ -1,4 +1,4 @@
-import { wordContainsArrayOfChars } from "@/utils";
+import { wordContainsArrayOfChars } from "@/shared/utils";
 import { stopSound, playSound } from "./GameSounds";
 
 export default {

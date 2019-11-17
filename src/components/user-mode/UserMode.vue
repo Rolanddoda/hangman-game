@@ -26,7 +26,7 @@
 
 <script>
 import randomWord from "random-words";
-import { randomNumber, randomIndexesFromWord } from "../../utils";
+import { randomNumber, randomIndexesFromWord } from "@/shared/utils";
 import { stopSound } from "@/shared/GameSounds";
 import guessWordSharedCode from "@/shared/guess-word-shared-code";
 // Components
