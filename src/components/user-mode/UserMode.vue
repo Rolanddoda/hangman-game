@@ -29,6 +29,7 @@ import randomWord from "random-words";
 import { randomNumber, randomIndexesFromWord } from "@/shared/utils";
 import { stopSound } from "@/shared/GameSounds";
 import guessWordSharedCode from "@/shared/guess-word-shared-code";
+import { errors } from "@/shared/errorsObservable";
 // Components
 import DisplayWordChars from "@/shared/components/DisplayWordChars";
 import VirtualKeyboard from "@/shared/components/VirtualKeyboard";
@@ -49,8 +50,7 @@ export default {
 
   data: () => ({
     word: "",
-    charsClicked: [],
-    errorsCount: 0
+    charsClicked: []
   }),
 
   computed: {
@@ -61,6 +61,15 @@ export default {
         hidden: hiddenIndexes.includes(index),
         value: char
       }));
+    },
+
+    errorsCount: {
+      get() {
+        return errors.count;
+      },
+      set(val) {
+        errors.count = val;
+      }
     }
   },
 

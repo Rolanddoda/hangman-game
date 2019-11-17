@@ -15,6 +15,8 @@
 </template>
 
 <script>
+import { errors } from "@/shared/errorsObservable";
+// Components
 import HangmanSVG from "./components/HangmanSVG";
 import UserMode from "./components/user-mode/UserMode";
 import ComputerMode from "./components/computer-mode/ComputerMode";
@@ -29,9 +31,19 @@ export default {
   },
 
   data: () => ({
-    errorsCount: 0,
     userMode: true
   }),
+
+  computed: {
+    errorsCount: {
+      get() {
+        return errors.count;
+      },
+      set(val) {
+        errors.count = val;
+      }
+    }
+  },
 
   methods: {
     toggleUserMode() {
