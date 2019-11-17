@@ -16,8 +16,8 @@
 
 <script>
 import HangmanSVG from "./components/HangmanSVG";
-import UserMode from "./components/UserMode/UserMode";
-import ComputerMode from "./components/ComputerMode/ComputerMode";
+import UserMode from "./components/user-mode/UserMode";
+import ComputerMode from "./components/computer-mode/ComputerMode";
 
 export default {
   name: "app",

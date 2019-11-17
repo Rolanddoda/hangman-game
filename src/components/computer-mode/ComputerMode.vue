@@ -16,7 +16,7 @@
 <script>
 import PcFindWord from "@/shared/components/PcFindWord";
 import WordModal from "./child-components/WordModal";
-import GetPcToFindTheWord from "./GetPcToFindTheWord";
+import GetPcToFindTheWord from "./child-components/GetPcToFindTheWord";
 
 export default {
   components: {

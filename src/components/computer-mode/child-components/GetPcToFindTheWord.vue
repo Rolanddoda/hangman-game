@@ -147,5 +147,5 @@ export default {
 
 @import "~@/sass/mixins";
 
-@include guessWordSharedStyle();
+@include gameSharedStyle();
 </style>

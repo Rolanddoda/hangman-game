@@ -1,5 +1,5 @@
 <template>
-  <div class="guess-word-and-keyboard">
+  <div class="user-mode">
     <div
       class="word-wrapper"
       ref="wordWrapper"
@@ -88,5 +88,5 @@ export default {
 <style lang="scss" scoped>
 @import "~@/sass/mixins";
 
-@include guessWordSharedStyle();
+@include gameSharedStyle();
 </style>
