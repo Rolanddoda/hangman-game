@@ -72,12 +72,14 @@
 </template>
 
 <script>
-export default {
-  props: {
-    errorsCount: Number
-  },
+import { errors } from "@/shared/errors-observable";
 
+export default {
   computed: {
+    errorsCount() {
+      return errors.count;
+    },
+
     classes() {
       const classes = {
         6: "moveUpStep1",

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <HangmanSVG :errors-count="errorsCount" />
+    <HangmanSVG />
     <UserMode
       v-if="userMode"
       @errors-count-changed="errorsCount = $event"
