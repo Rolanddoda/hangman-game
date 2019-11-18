@@ -29,7 +29,6 @@ export default {
     startNewGame() {
       this.showModal = true;
       this.chars = null;
-      this.$emit("errors-count-changed", 0);
     }
   }
 };

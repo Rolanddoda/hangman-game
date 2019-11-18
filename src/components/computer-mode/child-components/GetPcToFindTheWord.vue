@@ -130,6 +130,7 @@ export default {
     },
 
     startNewGame() {
+      this.errorsCount = 0;
       stopSound("lost");
       stopSound("won");
       this.$emit("start-new-game");
