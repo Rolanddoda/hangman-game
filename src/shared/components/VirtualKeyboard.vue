@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { getKeyboardChars } from "../utils";
+import { getKeyboardChars } from "@/shared/utils";
 
 export default {
   props: {

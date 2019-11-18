@@ -36,6 +36,7 @@ export default {
   display: grid;
   grid-auto-flow: column;
   justify-content: center;
+  align-items: center;
   gap: 10px;
 }
 </style>

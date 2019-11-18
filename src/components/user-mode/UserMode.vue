@@ -1,5 +1,5 @@
 <template>
-  <div class="guess-word-and-keyboard">
+  <div class="user-mode">
     <div
       class="word-wrapper"
       ref="wordWrapper"
@@ -18,39 +18,34 @@
       @char-pressed="charPressed"
     />
 
-    <ErrorsDisplay :errors-count="errorsCount" :max-errors="maxErrors" />
-    <PcFindWord @click="letPcToFindWord" />
-    <LetPcGuessWord @pc-guess-word="$emit('pc-mode')" />
+    <BaseBtn class="reveal-word-btn" @click="revealTheWord">
+      Reveal the word
+    </BaseBtn>
   </div>
 </template>
 
 <script>
 import randomWord from "random-words";
-import { randomNumber, randomIndexesFromWord } from "../../utils";
-import { stopSound } from "@/shared/GameSounds";
+import { randomNumber, randomIndexesFromWord } from "@/shared/utils";
+import { stopSound } from "@/shared/game-sounds";
 import guessWordSharedCode from "@/shared/guess-word-shared-code";
 // Components
-import DisplayWordChars from "@/shared/DisplayWordChars";
-import VirtualKeyboard from "@/shared/VirtualKeyboard";
-import ErrorsDisplay from "@/shared/ErrorsDisplay";
-import PcFindWord from "@/shared/PcFindWord";
-import LetPcGuessWord from "./child-components/LetPcGuessWord";
+import DisplayWordChars from "@/shared/components/DisplayWordChars";
+import VirtualKeyboard from "@/shared/components/VirtualKeyboard";
+import BaseBtn from "@/shared/components/BaseBtn";
 
 export default {
   components: {
     VirtualKeyboard,
-    ErrorsDisplay,
-    PcFindWord,
-    LetPcGuessWord,
-    DisplayWordChars
+    DisplayWordChars,
+    BaseBtn
   },
 
   mixins: [guessWordSharedCode],
 
   data: () => ({
     word: "",
-    charsClicked: [],
-    errorsCount: 0
+    charsClicked: []
   }),
 
   computed: {
@@ -66,7 +61,6 @@ export default {
 
   created() {
     this.startGame();
-    this.maxErrors = 8; // here we set max errors to 8 and this property is not reactive
   },
 
   methods: {
@@ -78,7 +72,7 @@ export default {
       this.charsClicked = [];
     },
 
-    letPcToFindWord() {
+    revealTheWord() {
       this.hiddenChars.forEach(char => this.charsClicked.push(char));
     }
   }
@@ -88,5 +82,11 @@ export default {
 <style lang="scss" scoped>
 @import "~@/sass/mixins";
 
-@include guessWordSharedStyle();
+@include gameSharedStyle();
+
+::v-deep .reveal-word-btn {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+}
 </style>

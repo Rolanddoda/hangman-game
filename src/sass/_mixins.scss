@@ -66,11 +66,11 @@
   }
 }
 
-@mixin guessWordSharedStyle () {
+@mixin gameSharedStyle () {
   @include shakeAnimation();
   @include scaleFaceAnimation();
 
-  .guess-word-and-keyboard {
+  .user-mode, .computer-mode {
     display: grid;
     justify-items: center;
     gap: 20px;

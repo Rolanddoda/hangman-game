@@ -1,8 +1,18 @@
-import { wordContainsArrayOfChars } from "@/utils";
-import { stopSound, playSound } from "./GameSounds";
+import { wordContainsArrayOfChars } from "@/shared/utils";
+import { stopSound, playSound } from "./game-sounds";
+import { errors } from "./errors-observable";
 
 export default {
   computed: {
+    errorsCount: {
+      get() {
+        return errors.count;
+      },
+      set(val) {
+        errors.count = val;
+      }
+    },
+
     hiddenChars() {
       return this.chars.filter(char => char.hidden).map(char => char.value);
     },
@@ -15,15 +25,11 @@ export default {
     },
 
     maxErrorsExceeded() {
-      return this.errorsCount > this.maxErrors;
+      return errors.count > errors.maxErrors;
     }
   },
 
   watch: {
-    errorsCount(val) {
-      this.$emit("errors-count-changed", val);
-    },
-
     isWordSolved(val) {
       val && !this.maxErrorsExceeded && playSound("won");
     },

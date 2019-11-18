@@ -1,5 +1,5 @@
 <template>
-  <div class="guess-word-and-keyboard">
+  <div class="computer-mode">
     <div
       class="word-wrapper"
       ref="wordWrapper"
@@ -17,26 +17,22 @@
     </div>
 
     <VirtualKeyboard computer-mode :disabled-chars="charsClicked" />
-
-    <ErrorsDisplay :errors-count="errorsCount" :max-errors="maxErrors" />
   </div>
 </template>
 
 <script>
-import { getKeyboardChars, sleep } from "@/utils";
-import words from "an-array-of-english-words";
-import { stopSound } from "@/shared/GameSounds";
+import { getKeyboardChars, getCharAndIndex, sleep } from "@/shared/utils";
+import engWords from "an-array-of-english-words";
+import { stopSound } from "@/shared/game-sounds";
 import guessWordSharedCode from "@/shared/guess-word-shared-code";
 // Components
-import DisplayWordChars from "@/shared/DisplayWordChars";
-import VirtualKeyboard from "@/shared/VirtualKeyboard";
-import ErrorsDisplay from "@/shared/ErrorsDisplay";
+import DisplayWordChars from "@/shared/components/DisplayWordChars";
+import VirtualKeyboard from "@/shared/components/VirtualKeyboard";
 
 export default {
   components: {
     DisplayWordChars,
-    VirtualKeyboard,
-    ErrorsDisplay
+    VirtualKeyboard
   },
 
   mixins: [guessWordSharedCode],
@@ -47,33 +43,25 @@ export default {
 
   data: () => ({
     charsClicked: [],
-    errorsCount: 0,
     triesCount: 0,
-    timeOut: null
+    raFrame: null // request animation frame
   }),
 
-  computed: {
-    guesses() {
-      return Array.from({ length: 26 }, () => () => this.guessChar());
-    },
-
-    getComputerToPlay() {
-      return () => {
-        requestAnimationFrame(() => {
-          this.guesses[this.triesCount]();
-        });
-      };
-    }
+  beforeDestroy() {
+    cancelAnimationFrame(this.raFrame);
   },
 
   created() {
-    this.guessChar();
-    this.maxErrors = 8; // here we set max errors to 8 and this property is not reactive
+    this.getComputerToPlay();
   },
 
   methods: {
-    async guessChar() {
+    async getComputerToPlay() {
       await sleep(2000);
+      this.raFrame = requestAnimationFrame(this.guessChar);
+    },
+
+    async guessChar() {
       if (!this.$refs.charsDisplay) return; // component is destroyed but code gets executed
       const guessedChar = this.getNextChar();
       this.charPressed(guessedChar);
@@ -93,28 +81,36 @@ export default {
 
     getProbableChars() {
       const charsNotFoundCount = this.getCharsNotFoundCount();
-      if (charsNotFoundCount > 2) return getKeyboardChars(true);
+      if (charsNotFoundCount > 4) return getKeyboardChars(true);
       return this.bestMatches();
     },
 
     bestMatches() {
+      const possibleWords = this.getPossibleWords();
+      const hiddenIndexes = this.getHiddenIndexes();
+      return this.getBestProbableChars(possibleWords, hiddenIndexes);
+    },
+
+    getPossibleWords() {
       const allChars = this.$refs.charsDisplay.getChars();
-      const charAndIndex = allChars.reduce((acc, char, index) => {
-        if (char !== "_") acc.push({ index, char });
-        return acc;
-      }, []);
-      const wordsWithSameLength = words.filter(
-        word => word.length === allChars.length
-      );
-      const possibleWords = wordsWithSameLength.filter(word => {
+      const charAndIndex = getCharAndIndex(allChars);
+      const words = engWords.filter(w => w.length === allChars.length);
+      return words.filter(word => {
         return charAndIndex.every(
           char => word[char.index] === char.char.toLowerCase()
         );
       });
-      const hiddenIndexes = allChars.reduce((acc, char, index) => {
+    },
+
+    getHiddenIndexes() {
+      const allChars = this.$refs.charsDisplay.getChars();
+      return allChars.reduce((acc, char, index) => {
         if (char === "_") acc.push(index);
         return acc;
       }, []);
+    },
+
+    getBestProbableChars(possibleWords, hiddenIndexes) {
       const probableChars = possibleWords.reduce((acc, word) => {
         const chars = word
           .split("")
@@ -134,6 +130,7 @@ export default {
     },
 
     startNewGame() {
+      this.errorsCount = 0;
       stopSound("lost");
       stopSound("won");
       this.$emit("start-new-game");
@@ -147,5 +144,5 @@ export default {
 
 @import "~@/sass/mixins";
 
-@include guessWordSharedStyle();
+@include gameSharedStyle();
 </style>

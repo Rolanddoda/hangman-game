@@ -8,12 +8,21 @@
 </template>
 
 <script>
+import { errors } from "@/shared/errors-observable";
+
 export default {
-  props: {
-    errorsCount: Number,
-    maxErrors: {
-      type: Number,
-      default: 8
+  computed: {
+    errorsCount: {
+      get() {
+        return errors.count;
+      },
+      set(val) {
+        errors.count = val;
+      }
+    },
+
+    maxErrors() {
+      return errors.maxErrors;
     }
   },
 
