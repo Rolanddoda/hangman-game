@@ -18,10 +18,7 @@
       @char-pressed="charPressed"
     />
 
-    <BaseBtn
-      style="position: fixed; left: 20px; bottom: 20px"
-      @click="letPcToFindWord"
-    >
+    <BaseBtn class="reveal-word-btn" @click="revealTheWord">
       Reveal the word
     </BaseBtn>
   </div>
@@ -75,7 +72,7 @@ export default {
       this.charsClicked = [];
     },
 
-    letPcToFindWord() {
+    revealTheWord() {
       this.hiddenChars.forEach(char => this.charsClicked.push(char));
     }
   }
@@ -86,4 +83,10 @@ export default {
 @import "~@/sass/mixins";
 
 @include gameSharedStyle();
+
+::v-deep .reveal-word-btn {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+}
 </style>
