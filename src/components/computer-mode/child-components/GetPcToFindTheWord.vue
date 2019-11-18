@@ -43,30 +43,25 @@ export default {
 
   data: () => ({
     charsClicked: [],
-    triesCount: 0
+    triesCount: 0,
+    raFrame: null // request animation frame
   }),
 
-  computed: {
-    guesses() {
-      return Array.from({ length: 26 }, () => () => this.guessChar());
-    },
-
-    getComputerToPlay() {
-      return () => {
-        requestAnimationFrame(() => {
-          this.guesses[this.triesCount]();
-        });
-      };
-    }
+  beforeDestroy() {
+    cancelAnimationFrame(this.raFrame);
   },
 
   created() {
-    this.guessChar();
+    this.getComputerToPlay();
   },
 
   methods: {
-    async guessChar() {
+    async getComputerToPlay() {
       await sleep(2000);
+      this.raFrame = requestAnimationFrame(this.guessChar);
+    },
+
+    async guessChar() {
       if (!this.$refs.charsDisplay) return; // component is destroyed but code gets executed
       const guessedChar = this.getNextChar();
       this.charPressed(guessedChar);
