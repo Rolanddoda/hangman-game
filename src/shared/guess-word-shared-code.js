@@ -1,5 +1,5 @@
 import { wordContainsArrayOfChars } from "@/shared/utils";
-import { stopSound, playSound } from "./GameSounds";
+import { stopSound, playSound } from "./game-sounds";
 import { errors } from "./errors-observable";
 
 export default {

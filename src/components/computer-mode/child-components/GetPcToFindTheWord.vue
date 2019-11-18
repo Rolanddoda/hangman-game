@@ -23,7 +23,7 @@
 <script>
 import { getKeyboardChars, getCharAndIndex, sleep } from "@/shared/utils";
 import engWords from "an-array-of-english-words";
-import { stopSound } from "@/shared/GameSounds";
+import { stopSound } from "@/shared/game-sounds";
 import guessWordSharedCode from "@/shared/guess-word-shared-code";
 // Components
 import DisplayWordChars from "@/shared/components/DisplayWordChars";
@@ -81,7 +81,7 @@ export default {
 
     getProbableChars() {
       const charsNotFoundCount = this.getCharsNotFoundCount();
-      if (charsNotFoundCount > 2) return getKeyboardChars(true);
+      if (charsNotFoundCount > 4) return getKeyboardChars(true);
       return this.bestMatches();
     },
 

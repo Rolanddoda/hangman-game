@@ -4,13 +4,14 @@
     <UserMode v-if="userMode" />
     <ComputerMode v-else />
     <ErrorsDisplay />
-    <BaseBtn class="switch-mode-btn" @click="userMode = !userMode">
+    <BaseBtn class="switch-mode-btn" @click="switchMode">
       Switch to {{ userMode ? "Computer mode" : "User mode" }}
     </BaseBtn>
   </div>
 </template>
 
 <script>
+import { errors } from "@/shared/errors-observable";
 // Components
 import ErrorsDisplay from "@/shared/components/ErrorsDisplay";
 import HangmanSVG from "./components/HangmanSVG";
@@ -31,7 +32,14 @@ export default {
 
   data: () => ({
     userMode: true
-  })
+  }),
+
+  methods: {
+    switchMode() {
+      errors.count = 0; // reset errors
+      this.userMode = !this.userMode;
+    }
+  }
 };
 </script>
 
