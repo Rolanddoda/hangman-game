@@ -21,8 +21,8 @@
 </template>
 
 <script>
-import { getKeyboardChars, sleep } from "@/shared/utils";
-import words from "an-array-of-english-words";
+import { getKeyboardChars, getCharAndIndex, sleep } from "@/shared/utils";
+import engWords from "an-array-of-english-words";
 import { stopSound } from "@/shared/GameSounds";
 import guessWordSharedCode from "@/shared/guess-word-shared-code";
 // Components
@@ -43,8 +43,7 @@ export default {
 
   data: () => ({
     charsClicked: [],
-    triesCount: 0,
-    timeOut: null
+    triesCount: 0
   }),
 
   computed: {
@@ -92,23 +91,31 @@ export default {
     },
 
     bestMatches() {
+      const possibleWords = this.getPossibleWords();
+      const hiddenIndexes = this.getHiddenIndexes();
+      return this.getBestProbableChars(possibleWords, hiddenIndexes);
+    },
+
+    getPossibleWords() {
       const allChars = this.$refs.charsDisplay.getChars();
-      const charAndIndex = allChars.reduce((acc, char, index) => {
-        if (char !== "_") acc.push({ index, char });
-        return acc;
-      }, []);
-      const wordsWithSameLength = words.filter(
-        word => word.length === allChars.length
-      );
-      const possibleWords = wordsWithSameLength.filter(word => {
+      const charAndIndex = getCharAndIndex(allChars);
+      const words = engWords.filter(w => w.length === allChars.length);
+      return words.filter(word => {
         return charAndIndex.every(
           char => word[char.index] === char.char.toLowerCase()
         );
       });
-      const hiddenIndexes = allChars.reduce((acc, char, index) => {
+    },
+
+    getHiddenIndexes() {
+      const allChars = this.$refs.charsDisplay.getChars();
+      return allChars.reduce((acc, char, index) => {
         if (char === "_") acc.push(index);
         return acc;
       }, []);
+    },
+
+    getBestProbableChars(possibleWords, hiddenIndexes) {
       const probableChars = possibleWords.reduce((acc, word) => {
         const chars = word
           .split("")

@@ -21,4 +21,10 @@ export const getKeyboardChars = (commonlyOccur = false) => {
   return Array.from(unique);
 };
 
+export const getCharAndIndex = chars =>
+  chars.reduce((acc, char, index) => {
+    if (char !== "_") acc.push({ index, char });
+    return acc;
+  }, []);
+
 export const sleep = ms => new Promise(res => setTimeout(res, ms));
