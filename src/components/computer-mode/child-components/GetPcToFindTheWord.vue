@@ -1,5 +1,5 @@
 <template>
-  <div class="guess-word-and-keyboard">
+  <div class="computer-mode">
     <div
       class="word-wrapper"
       ref="wordWrapper"
@@ -17,8 +17,6 @@
     </div>
 
     <VirtualKeyboard computer-mode :disabled-chars="charsClicked" />
-
-    <ErrorsDisplay :errors-count="errorsCount" />
   </div>
 </template>
 
@@ -30,13 +28,11 @@ import guessWordSharedCode from "@/shared/guess-word-shared-code";
 // Components
 import DisplayWordChars from "@/shared/components/DisplayWordChars";
 import VirtualKeyboard from "@/shared/components/VirtualKeyboard";
-import ErrorsDisplay from "@/shared/components/ErrorsDisplay";
 
 export default {
   components: {
     DisplayWordChars,
-    VirtualKeyboard,
-    ErrorsDisplay
+    VirtualKeyboard
   },
 
   mixins: [guessWordSharedCode],

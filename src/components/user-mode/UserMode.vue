@@ -18,7 +18,6 @@
       @char-pressed="charPressed"
     />
 
-    <ErrorsDisplay :errors-count="errorsCount" />
     <PcFindWord @click="letPcToFindWord" />
     <LetPcGuessWord @pc-guess-word="$emit('pc-mode')" />
   </div>
@@ -32,14 +31,12 @@ import guessWordSharedCode from "@/shared/guess-word-shared-code";
 // Components
 import DisplayWordChars from "@/shared/components/DisplayWordChars";
 import VirtualKeyboard from "@/shared/components/VirtualKeyboard";
-import ErrorsDisplay from "@/shared/components/ErrorsDisplay";
 import PcFindWord from "@/shared/components/PcFindWord";
 import LetPcGuessWord from "./child-components/LetPcGuessWord";
 
 export default {
   components: {
     VirtualKeyboard,
-    ErrorsDisplay,
     PcFindWord,
     LetPcGuessWord,
     DisplayWordChars

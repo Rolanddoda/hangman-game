@@ -11,12 +11,15 @@
       @errors-count-changed="errorsCount = $event"
       @toggle-user-mode="toggleUserMode"
     />
+
+    <ErrorsDisplay />
   </div>
 </template>
 
 <script>
 import { errors } from "@/shared/errors-observable";
 // Components
+import ErrorsDisplay from "@/shared/components/ErrorsDisplay";
 import HangmanSVG from "./components/HangmanSVG";
 import UserMode from "./components/user-mode/UserMode";
 import ComputerMode from "./components/computer-mode/ComputerMode";
@@ -27,7 +30,8 @@ export default {
   components: {
     HangmanSVG,
     UserMode,
-    ComputerMode
+    ComputerMode,
+    ErrorsDisplay
   },
 
   data: () => ({
