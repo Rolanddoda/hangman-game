@@ -18,7 +18,7 @@
 
     <VirtualKeyboard computer-mode :disabled-chars="charsClicked" />
 
-    <ErrorsDisplay :errors-count="errorsCount" :max-errors="maxErrors" />
+    <ErrorsDisplay :errors-count="errorsCount" />
   </div>
 </template>
 
@@ -47,7 +47,6 @@ export default {
 
   data: () => ({
     charsClicked: [],
-    errorsCount: 0,
     triesCount: 0,
     timeOut: null
   }),
@@ -68,7 +67,6 @@ export default {
 
   created() {
     this.guessChar();
-    this.maxErrors = 8; // here we set max errors to 8 and this property is not reactive
   },
 
   methods: {

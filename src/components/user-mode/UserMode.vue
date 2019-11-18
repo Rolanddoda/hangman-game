@@ -18,7 +18,7 @@
       @char-pressed="charPressed"
     />
 
-    <ErrorsDisplay :errors-count="errorsCount" :max-errors="maxErrors" />
+    <ErrorsDisplay :errors-count="errorsCount" />
     <PcFindWord @click="letPcToFindWord" />
     <LetPcGuessWord @pc-guess-word="$emit('pc-mode')" />
   </div>
@@ -29,7 +29,6 @@ import randomWord from "random-words";
 import { randomNumber, randomIndexesFromWord } from "@/shared/utils";
 import { stopSound } from "@/shared/GameSounds";
 import guessWordSharedCode from "@/shared/guess-word-shared-code";
-import { errors } from "@/shared/errors-observable";
 // Components
 import DisplayWordChars from "@/shared/components/DisplayWordChars";
 import VirtualKeyboard from "@/shared/components/VirtualKeyboard";
@@ -61,21 +60,11 @@ export default {
         hidden: hiddenIndexes.includes(index),
         value: char
       }));
-    },
-
-    errorsCount: {
-      get() {
-        return errors.count;
-      },
-      set(val) {
-        errors.count = val;
-      }
     }
   },
 
   created() {
     this.startGame();
-    this.maxErrors = 8; // here we set max errors to 8 and this property is not reactive
   },
 
   methods: {
