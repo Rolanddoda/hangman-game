@@ -1,23 +1,13 @@
 <template>
   <div id="app">
     <HangmanSVG />
-    <UserMode
-      v-if="userMode"
-      @errors-count-changed="errorsCount = $event"
-      @pc-mode="toggleUserMode"
-    />
-    <ComputerMode
-      v-else
-      @errors-count-changed="errorsCount = $event"
-      @toggle-user-mode="toggleUserMode"
-    />
-
+    <UserMode v-if="userMode" />
+    <ComputerMode v-else />
     <ErrorsDisplay />
   </div>
 </template>
 
 <script>
-import { errors } from "@/shared/errors-observable";
 // Components
 import ErrorsDisplay from "@/shared/components/ErrorsDisplay";
 import HangmanSVG from "./components/HangmanSVG";
@@ -36,25 +26,7 @@ export default {
 
   data: () => ({
     userMode: true
-  }),
-
-  computed: {
-    errorsCount: {
-      get() {
-        return errors.count;
-      },
-      set(val) {
-        errors.count = val;
-      }
-    }
-  },
-
-  methods: {
-    toggleUserMode() {
-      this.errorsCount = 0; // reset errors when changing mode
-      this.userMode = !this.userMode;
-    }
-  }
+  })
 };
 </script>
 

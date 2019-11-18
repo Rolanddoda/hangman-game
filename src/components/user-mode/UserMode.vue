@@ -18,8 +18,12 @@
       @char-pressed="charPressed"
     />
 
-    <PcFindWord @click="letPcToFindWord" />
-    <LetPcGuessWord @pc-guess-word="$emit('pc-mode')" />
+    <BaseBtn
+      style="position: fixed; left: 20px; bottom: 20px"
+      @click="letPcToFindWord"
+    >
+      Reveal the word
+    </BaseBtn>
   </div>
 </template>
 
@@ -31,15 +35,13 @@ import guessWordSharedCode from "@/shared/guess-word-shared-code";
 // Components
 import DisplayWordChars from "@/shared/components/DisplayWordChars";
 import VirtualKeyboard from "@/shared/components/VirtualKeyboard";
-import PcFindWord from "@/shared/components/PcFindWord";
-import LetPcGuessWord from "./child-components/LetPcGuessWord";
+import BaseBtn from "@/shared/components/BaseBtn";
 
 export default {
   components: {
     VirtualKeyboard,
-    PcFindWord,
-    LetPcGuessWord,
-    DisplayWordChars
+    DisplayWordChars,
+    BaseBtn
   },
 
   mixins: [guessWordSharedCode],

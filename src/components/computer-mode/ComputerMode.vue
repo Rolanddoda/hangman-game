@@ -1,28 +1,18 @@
 <template>
   <div class="pc-guess-word">
     <WordModal v-if="showModal" @chars-selected="charsSelected" />
-    <GetPcToFindTheWord
-      v-else
-      :chars="chars"
-      @errors-count-changed="$emit('errors-count-changed', $event)"
-      @start-new-game="startNewGame"
-    />
-    <PcFindWord @click="$emit('toggle-user-mode')">
-      Let ME find a word
-    </PcFindWord>
+    <GetPcToFindTheWord v-else :chars="chars" @start-new-game="startNewGame" />
   </div>
 </template>
 
 <script>
-import PcFindWord from "@/shared/components/PcFindWord";
 import WordModal from "./child-components/WordModal";
 import GetPcToFindTheWord from "./child-components/GetPcToFindTheWord";
 
 export default {
   components: {
     WordModal,
-    GetPcToFindTheWord,
-    PcFindWord
+    GetPcToFindTheWord
   },
 
   data: () => ({

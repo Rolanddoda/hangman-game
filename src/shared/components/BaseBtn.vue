@@ -1,5 +1,5 @@
 <template functional>
-  <em class="base-btn" @click="listeners['click']">
+  <em :style="data.staticStyle" class="base-btn" @click="listeners['click']">
     <slot></slot>
   </em>
 </template>
